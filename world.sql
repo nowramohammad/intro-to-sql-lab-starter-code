@@ -6,36 +6,39 @@ DROP TABLE IF EXISTS countries CASCADE;
 DROP TABLE IF EXISTS countrylanguages CASCADE;
 
 CREATE TABLE cities (
-    id integer NOT NULL,
-    name text NOT NULL,
-    countrycode character(3) NOT NULL,
-    district text NOT NULL,
-    population integer NOT NULL
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    countrycode CHARACTER(3) NOT NULL,
+    district TEXT NOT NULL,
+    population INTEGER NOT NULL
 );
 
 CREATE TABLE countries (
-    code character(3) NOT NULL,
-    name text NOT NULL,
-    continent text NOT NULL,
-    region text NOT NULL,
-    surfacearea real NOT NULL,
-    indepyear smallint,
-    population integer NOT NULL,
-    lifeexpectancy real,
-    gnp numeric(10,2),
-    gnpold numeric(10,2),
-    localname text NOT NULL,
-    governmentform text NOT NULL,
-    headofstate text,
-    capital integer,
-    code2 character(2) NOT NULL
+     code CHARACTER(3) PRIMARY KEY,
+    name TEXT NOT NULL,
+    continent TEXT NOT NULL,
+    region TEXT NOT NULL,
+    surfacearea REAL NOT NULL,
+    indepyear SMALLINT,
+    population INTEGER NOT NULL,
+    lifeexpectancy REAL,
+    gnp NUMERIC(10,2),
+    gnpold NUMERIC(10,2),
+    localname TEXT NOT NULL,
+    governmentform TEXT NOT NULL,
+    headofstate TEXT,
+    capital INTEGER,
+    code2 CHARACTER(2) NOT NULL,
+    FOREIGN KEY (capital) REFERENCES cities(id)
 );
 
 CREATE TABLE countrylanguages (
-    countrycode character(3) NOT NULL,
-    language text NOT NULL,
-    isofficial boolean NOT NULL,
-    percentage real NOT NULL
+     countrycode CHARACTER(3) NOT NULL,
+    language TEXT NOT NULL,
+    isofficial BOOLEAN NOT NULL,
+    percentage REAL NOT NULL,
+    PRIMARY KEY (countrycode, language),
+    FOREIGN KEY (countrycode) REFERENCES countries(code)
 );
 
 INSERT INTO cities VALUES (1,'Kabul','AFG','Kabol',1780000);
